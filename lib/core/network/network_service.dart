@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 import '../constants/api_endpoints.dart';
 import '../utils/app_logger.dart';
@@ -21,15 +20,15 @@ class NetworkService {
         },
       ),
     );
-    if (kDebugMode){
-      _dio.interceptors.add(
-        LogInterceptor(
-          requestBody: true,
-          responseBody: true,
-          logPrint: (obj) => AppLogger.debug(obj.toString()),
-        ),
-      );
-    }
+    // if (kDebugMode){
+    //   _dio.interceptors.add(
+    //     LogInterceptor(
+    //       requestBody: false,
+    //       responseBody: true,
+    //       logPrint: (obj) => AppLogger.debug(obj.toString()),
+    //     ),
+    //   );
+    // }
   }
 
   Future<T> get<T>(
