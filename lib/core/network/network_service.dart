@@ -113,7 +113,9 @@ class NetworkService {
       case DioExceptionType.badResponse:
         final statusCode = e.response?.statusCode;
         final data = e.response?.data;
-        final serverMessage = data is Map ? data['message'] as String? : null;
+        final serverMessage = data is Map 
+            ? (data['message'] ?? data['error']) as String? 
+            : null;
         if (serverMessage != null) {
           return AppException(message: serverMessage, statusCode: statusCode);
         }

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/routes/app_route_const.dart';
+import '../../../../domain/entities/product.dart';
 
 class BuyNowBottomBarWidget extends StatelessWidget {
+  final Product product;
+
   const BuyNowBottomBarWidget({
     super.key,
+    required this.product,
   });
 
   @override
@@ -26,7 +32,13 @@ class BuyNowBottomBarWidget extends StatelessWidget {
           width: double.infinity,
           height: 54.h,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed(
+                AppRouteConst.planSelectionName,
+                pathParameters: {'id': product.id.toString()},
+                extra: product,
+              );
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).primaryColor,
               shape: RoundedRectangleBorder(

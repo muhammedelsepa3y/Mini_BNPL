@@ -6,11 +6,14 @@ import '../data/datasources/bnpl_local_data_source.dart';
 import '../data/datasources/bnpl_remote_data_source.dart';
 import '../data/repositories/bnpl_repository_impl.dart';
 import '../domain/repositiories/bnpl_repository.dart';
+import '../domain/usecases/check_payment_card.dart';
+import '../domain/usecases/create_new_order.dart';
 import '../domain/usecases/get_all_installments.dart';
 import '../domain/usecases/get_all_products.dart';
 import '../domain/usecases/get_product_details.dart';
 import '../presentation/products/bloc/products_bloc.dart';
 import '../presentation/product_details/bloc/product_details_bloc.dart';
+import '../presentation/order_flow/bloc/order_flow_bloc.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
@@ -27,9 +30,18 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerFactory(
+    () => OrderFlowBloc(
+      createOrder: sl(),
+      checkCard: sl(),
+    ),
+  );
+
   sl.registerLazySingleton(() => GetAllProducts(sl()));
   sl.registerLazySingleton(() => GetAllInstallments(sl()));
   sl.registerLazySingleton(() => GetProductDetails(sl()));
+  sl.registerLazySingleton(() => CreateOrder(sl()));
+  sl.registerLazySingleton(() => CheckCard(sl()));
 
   sl.registerLazySingleton<BnplRepository>(
     () => BnplRepositoryImpl(

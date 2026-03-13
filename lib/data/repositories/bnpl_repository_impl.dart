@@ -65,4 +65,25 @@ class BnplRepositoryImpl implements BnplRepository {
     }
   }
 
+  @override
+  Future<Either<AppException, int>> createOrder(int productId, int planId) async {
+    try {
+      final orderId = await remoteDataSource.createOrder(productId, planId);
+      return Right(orderId);
+    } catch (e) {
+      if (e is AppException) return Left(e);
+      return Left(AppException.unknown(e));
+    }
+  }
+
+  @override
+  Future<Either<AppException, bool>> checkCard(Map<String, dynamic> cardDetails) async {
+    try {
+      final result = await remoteDataSource.checkCard(cardDetails);
+      return Right(result);
+    } catch (e) {
+      if (e is AppException) return Left(e);
+      return Left(AppException.unknown(e));
+    }
+  }
 }

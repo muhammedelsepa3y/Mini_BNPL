@@ -71,6 +71,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
                   PaymentBreakdownWidget(
                     selectedPlan: selectedPlan!,
                     price: product.price,
+                    repaymentScheduleWidget: false,
                   ),
                 ],
               ],
@@ -78,8 +79,9 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
           ),
         ),
 
-        const BuyNowBottomBarWidget(),
+        BuyNowBottomBarWidget(product: product),
       ],
     );
   }
 }
+
