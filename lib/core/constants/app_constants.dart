@@ -1,5 +1,4 @@
 class AppConstants {
-  // boxes
   static const String appBox = 'bnpl_box';
   static const String productsCacheKey = 'products_cache';
   static const String installmentPlansCacheKey = 'installment_plans_cache';

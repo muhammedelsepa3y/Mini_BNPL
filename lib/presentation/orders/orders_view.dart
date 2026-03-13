@@ -12,9 +12,7 @@ class OrdersView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () {
-              // TODO: Implement refresh logic later
-            },
+            onPressed: () {},
           ),
         ],
       ),

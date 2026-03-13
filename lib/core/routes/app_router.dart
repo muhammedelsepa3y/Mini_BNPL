@@ -41,7 +41,7 @@ class AppRouter {
                   routes: [
                     GoRoute(
                       name: AppRouteConst.productDetailsName,
-                      path: AppRouteConst.products,
+                      path: 'details/:id',
                       builder: (context, state) {
                         final id = state.pathParameters['id'] ?? '';
                         return ProductDetailsView(id: id);
