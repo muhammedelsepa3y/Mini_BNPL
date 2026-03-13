@@ -1,4 +1,5 @@
 import 'package:bnpl_app/core/network/app_exception.dart';
+import 'package:bnpl_app/data/models/available_plan_model.dart';
 import 'package:dartz/dartz.dart';
 import '../../domain/entities/product.dart';
 import '../../domain/repositiories/bnpl_repository.dart';
@@ -21,7 +22,6 @@ class BnplRepositoryImpl implements BnplRepository {
       await localDataSource.cacheProducts(remoteProducts);
       return Right(remoteProducts);
     } catch (e) {
-      // Fallback to local on error
       try {
         final localProducts = await localDataSource.getLastProducts();
         return Right(localProducts);
@@ -31,4 +31,22 @@ class BnplRepositoryImpl implements BnplRepository {
       }
     }
   }
+
+  @override
+  Future<Either<AppException, List<AvailablePlanModel>>> getAllInstallments() async{
+    try {
+      final remoteInstallments = await remoteDataSource.getAllInstallments();
+      await localDataSource.cacheInstallments(remoteInstallments);
+      return Right(remoteInstallments);
+    } catch (e) {
+      try {
+        final localInstallments = await localDataSource.getLastInstallments();
+        return Right(localInstallments);
+      } catch (localError) {
+        if (e is AppException) return Left(e);
+        return Left(AppException.unknown(e));
+      }
+    }
+  }
+
 }
