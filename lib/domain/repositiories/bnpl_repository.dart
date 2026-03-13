@@ -7,5 +7,6 @@ import '../entities/product.dart';
 
 abstract class BnplRepository {
   Future<Either<AppException, List<Product>>> getAllProducts();
+  Future<Either<AppException, Product>> getProductDetails(int id);
   Future<Either<AppException, List<AvailablePlanModel>>> getAllInstallments();
 }

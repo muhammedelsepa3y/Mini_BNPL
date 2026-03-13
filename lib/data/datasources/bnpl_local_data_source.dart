@@ -8,6 +8,7 @@ import '../models/product_model.dart';
 
 abstract class BnplLocalDataSource {
   Future<List<ProductModel>> getLastProducts();
+  Future<ProductModel> getProductDetails(int id);
   Future<void> cacheProducts(List<ProductModel> productsToCache);
   Future<List<AvailablePlanModel>> getLastInstallments();
   Future<void> cacheInstallments(List<AvailablePlanModel> installmentsToCache);
@@ -36,6 +37,16 @@ class BnplLocalDataSourceImpl implements BnplLocalDataSource {
       return Future.value(decodedJson.map((e) => ProductModel.fromJson(e)).toList());
     } else {
       throw AppException(message: 'No cached data present');
+    }
+  }
+
+  @override
+  Future<ProductModel> getProductDetails(int id) async {
+    final products = await getLastProducts();
+    try {
+      return products.firstWhere((p) => p.id == id);
+    } catch (e) {
+      throw AppException(message: 'Product not found locally');
     }
   }
 

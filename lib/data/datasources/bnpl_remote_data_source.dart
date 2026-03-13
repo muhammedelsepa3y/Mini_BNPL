@@ -6,6 +6,7 @@ import '../models/product_model.dart';
 
 abstract class BnplRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
+  Future<ProductModel> getProductDetails(int id);
   Future<List<AvailablePlanModel>> getAllInstallments();
 }
 
@@ -26,5 +27,12 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
     final response = await networkService.get(ApiEndpoints.installmentPlans);
     final List<dynamic> dataList = response is List ? response : (response['data'] ?? []);
     return dataList.map((json) => AvailablePlanModel.fromJson(json)).toList();
+  }
+
+  @override
+  Future<ProductModel> getProductDetails(int id) async {
+    final response = await networkService.get(ApiEndpoints.productDetails(id));
+    final data = response is Map ? response['data'] ?? response : response;
+    return ProductModel.fromJson(data);
   }
 }

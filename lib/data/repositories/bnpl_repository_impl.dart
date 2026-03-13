@@ -49,4 +49,20 @@ class BnplRepositoryImpl implements BnplRepository {
     }
   }
 
+  @override
+  Future<Either<AppException, Product>> getProductDetails(int id) async {
+    try {
+      final remoteProduct = await remoteDataSource.getProductDetails(id);
+      return Right(remoteProduct);
+    } catch (e) {
+      try {
+        final localProduct = await localDataSource.getProductDetails(id);
+        return Right(localProduct);
+      } catch (localError) {
+        if (e is AppException) return Left(e);
+        return Left(AppException.unknown(e));
+      }
+    }
+  }
+
 }

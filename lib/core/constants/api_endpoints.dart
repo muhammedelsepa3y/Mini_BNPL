@@ -5,7 +5,7 @@ class ApiEndpoints {
   static const String products = '/products/';
   static const String installmentPlans = '/installment-plans/';
   static String productDetails(int id) => '/products/$id/';
+  static const String checkCard = '/payments/check-card/';
   static const String orders = '/orders/';
   static String orderDetails(int id) => '/orders/$id/';
-  static const String checkCard = '/payments/check-card/';
 }
