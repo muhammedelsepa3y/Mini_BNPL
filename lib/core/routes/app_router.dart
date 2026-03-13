@@ -6,7 +6,6 @@ import '../../presentation/products/products_view.dart';
 
 import '../../presentation/shell/main_shell_view.dart';
 import '../../presentation/orders/orders_view.dart';
-import '../../presentation/orders/order_details_view.dart';
 import '../../presentation/product_details/product_details_view.dart';
 
 class AppRouter {
@@ -58,16 +57,6 @@ class AppRouter {
                   name: AppRouteConst.ordersName,
                   path: AppRouteConst.orders,
                   builder: (context, state) => const OrdersView(),
-                  routes: [
-                    GoRoute(
-                      name: AppRouteConst.orderDetailsName,
-                      path: 'details/:id',
-                      builder: (context, state) {
-                        final id = state.pathParameters['id'] ?? '';
-                        return OrderDetailsView(id: id);
-                      },
-                    ),
-                  ],
                 ),
               ],
             ),
