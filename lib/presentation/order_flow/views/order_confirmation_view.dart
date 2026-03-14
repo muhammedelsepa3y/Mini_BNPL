@@ -5,6 +5,7 @@ import 'package:bnpl_app/domain/entities/product.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_event.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_state.dart';
+import 'package:bnpl_app/presentation/orders/bloc/orders_bloc.dart';
 import 'package:bnpl_app/presentation/widgets/repayment_schedule_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,21 +25,28 @@ class OrderConfirmationView extends StatelessWidget {
 
   Future<bool> _authenticate() async {
     final auth = LocalAuthentication();
-    try {
-      final canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-      final canAuthenticate =
-          canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+      try {
+        final bool isSupported = await auth.isDeviceSupported();
+        final List<BiometricType> biometrics =
+        await auth.getAvailableBiometrics();
+        if (!isSupported && biometrics.isEmpty) {
+          return true;
+        }
 
-      if (!canAuthenticate) return true;
+        final bool hasFingerprint =
+        biometrics.contains(BiometricType.fingerprint);
+        final bool hasFace = biometrics.contains(BiometricType.face);
+        if (hasFingerprint || hasFace || isSupported) {
+          return await auth.authenticate(
+            localizedReason: 'Please authenticate to continue',
+            biometricOnly: false,
+          );
+        }
 
-      return await auth.authenticate(
-        localizedReason: 'Please authenticate to confirm your order',
-        biometricOnly: true,
-      );
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-      return false;
-    }
+        return true;
+      } catch (_) {
+        return false;
+      }
   }
 
   @override
@@ -52,10 +60,15 @@ class OrderConfirmationView extends StatelessWidget {
       child: BlocConsumer<OrderFlowBloc, OrderFlowState>(
         listener: (context, state) {
           if (state is OrderCreatedSuccess) {
+
             context.goNamed(
               AppRouteConst.paymentName,
+              pathParameters: {'id': product.id.toString()},
               extra: state.orderId,
             );
+            Future.delayed(const Duration(milliseconds: 200), () {
+              sl<OrdersBloc>().add(FetchOrdersEvent());
+            });
           } else if (state is OrderFlowError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),

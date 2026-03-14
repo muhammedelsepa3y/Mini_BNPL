@@ -1,23 +1,35 @@
+
 part of 'products_bloc.dart';
 
-abstract class ProductsState {}
+abstract class ProductsState extends Equatable {
+  const ProductsState();
+
+  @override
+  List<Object?> get props => [];
+}
 
 class ProductsInitial extends ProductsState {}
 
 class ProductsLoading extends ProductsState {}
 
 class ProductsLoaded extends ProductsState {
-  ProductsLoaded({
+  const ProductsLoaded({
     required this.products,
     required this.installments,
   });
 
   final List<Product> products;
   final List<AvailablePlanModel> installments;
+
+  @override
+  List<Object?> get props => [products, installments];
 }
 
 class ProductsError extends ProductsState {
-  ProductsError(this.message);
+  const ProductsError(this.message);
 
   final String message;
+
+  @override
+  List<Object?> get props => [message];
 }

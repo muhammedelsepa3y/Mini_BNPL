@@ -14,4 +14,5 @@ class AppRouteConst {
   static const String orderConfirmationName = 'order_confirmation';
   static const String paymentName = 'payment';
   static const String ordersName = 'orders';
+
 }

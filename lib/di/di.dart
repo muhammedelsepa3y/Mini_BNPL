@@ -10,6 +10,7 @@ import 'package:bnpl_app/domain/usecases/get_all_products.dart';
 import 'package:bnpl_app/domain/usecases/get_product_details.dart';
 import 'package:bnpl_app/domain/usecases/get_orders.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
+import 'package:bnpl_app/presentation/orders/bloc/orders_bloc.dart';
 import 'package:bnpl_app/presentation/product_details/bloc/product_details_bloc.dart';
 import 'package:bnpl_app/presentation/products/bloc/products_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -34,6 +35,11 @@ Future<void> init() async {
       () => OrderFlowBloc(
         createOrder: sl(),
         checkCard: sl(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => OrdersBloc(
+        getOrders: sl(),
       ),
     )
     ..registerLazySingleton(() => GetAllProducts(sl()))

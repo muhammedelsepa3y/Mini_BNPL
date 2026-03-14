@@ -83,7 +83,6 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<List<OrderModel>> getOrders() async {
-    // ignore: inference_failure_on_function_invocation, networkService returns dynamic
     final response = await networkService.get(ApiEndpoints.orders);
     final dataList = response is List
         ? response as List<dynamic>

@@ -5,6 +5,7 @@ import 'package:bnpl_app/di/di.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_event.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_state.dart';
+import 'package:bnpl_app/presentation/orders/bloc/orders_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -97,13 +98,14 @@ class _PaymentViewState extends State<PaymentView> {
                                               'expiry_date': expiryDate,
                                               'cvv': cvvCode,
                                               'card_holder': cardHolderName,
+                                              'order_id': widget.orderId,
                                             }, widget.orderId),
                                           );
                                         }
                                       },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(
-                                    context,
+                                     context,
                                   ).primaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
@@ -190,7 +192,12 @@ class _PaymentViewState extends State<PaymentView> {
                     onPressed: () {
                       context
                         ..pop()
-                        ..goNamed(AppRouteConst.ordersName);
+                        ..goNamed(AppRouteConst.productsName);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        sl<OrdersBloc>().add(FetchOrdersEvent());
+                      });
+
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,

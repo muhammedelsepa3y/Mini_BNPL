@@ -3,6 +3,7 @@ import 'package:bnpl_app/data/models/available_plan_model.dart';
 import 'package:bnpl_app/domain/entities/product.dart';
 import 'package:bnpl_app/domain/usecases/get_all_installments.dart';
 import 'package:bnpl_app/domain/usecases/get_all_products.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'products_event.dart';

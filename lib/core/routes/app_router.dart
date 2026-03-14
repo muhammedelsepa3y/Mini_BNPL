@@ -12,6 +12,8 @@ import 'package:bnpl_app/presentation/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 class AppRouter {
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
       GlobalKey<NavigatorState>();
@@ -20,6 +22,7 @@ class AppRouter {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: AppRouteConst.splash,
+      observers: [routeObserver],
       errorPageBuilder: (context, state) {
         return const MaterialPage(
           child: Scaffold(
@@ -56,7 +59,7 @@ class AppRouter {
                           name: AppRouteConst.planSelectionName,
                           path: AppRouteConst.planSelection,
                           builder: (context, state) {
-                            final product = state.extra! as Product;
+                            final product = state.extra as Product;
                             return PlanSelectionView(product: product);
                           },
                         ),
@@ -64,7 +67,7 @@ class AppRouter {
                           name: AppRouteConst.orderConfirmationName,
                           path: AppRouteConst.orderConfirmation,
                           builder: (context, state) {
-                            final args = state.extra! as Map<String, dynamic>;
+                            final args = state.extra as Map<String, dynamic>;
                             return OrderConfirmationView(
                               product: args['product'] as Product,
                               selectedPlan: args['plan'] as AvailablePlan,
@@ -75,7 +78,7 @@ class AppRouter {
                           name: AppRouteConst.paymentName,
                           path: AppRouteConst.payment,
                           builder: (context, state) {
-                            final orderId = state.extra! as int;
+                            final orderId = state.extra as int;
                             return PaymentView(orderId: orderId);
                           },
                         ),
