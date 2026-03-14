@@ -48,7 +48,8 @@ class BuyNowBottomBarWidget extends StatelessWidget {
             ),
             child: Text(
               'Buy Now, Pay Later',
-              semanticsLabel: 'Purchase ${product.name} using Buy Now, Pay Later plan',
+              semanticsLabel:
+                  'Purchase ${product.name} using Buy Now, Pay Later plan',
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,

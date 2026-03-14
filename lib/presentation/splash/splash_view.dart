@@ -68,9 +68,9 @@ class _SplashViewState extends State<SplashView> {
                       ),
                     );
                   }
-                  return const Semantics(
+                  return Semantics(
                     label: 'Loading products',
-                    child: CircularProgressIndicator(),
+                    child: const CircularProgressIndicator(),
                   );
                 },
               ),

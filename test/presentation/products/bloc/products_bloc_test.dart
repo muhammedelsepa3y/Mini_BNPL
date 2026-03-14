@@ -21,7 +21,7 @@ void main() {
     when(mockProducts(any)).thenAnswer((_) async => const Right([]));
     when(mockInstallments(any)).thenAnswer((_) async => const Right([]));
 
-    expectLater(
+    await expectLater(
       bloc.stream,
       emitsInOrder([
         const ProductsLoading(),

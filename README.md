@@ -113,3 +113,11 @@ GitHub Actions runs on every push and pull request to `main`/`master`:
             test/presentation/splash/splash_view_test.dart`
 
 Workflow file: [.github/workflows/ci.yml](.github/workflows/ci.yml).
+---
+
+## Testing Payment Success
+
+To test a successful payment flow:
+- Use any card number starting with **4** (e.g., `4242...`).
+- Or use the specific test card: `1111222233334444`.
+- Any expiration date and CVV will be accepted for these cards.

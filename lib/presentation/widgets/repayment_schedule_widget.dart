@@ -36,7 +36,8 @@ class RepaymentScheduleWidget extends StatelessWidget {
                 '${date.day} ${_getMonthName(date.month)} ${date.year}';
 
             return Semantics(
-              label: 'Payment ${index + 1} of $durationMonths, \$${monthlyAmount.toStringAsFixed(2)}, due on $dateStr',
+              label: 'Payment ${index + 1} of $durationMonths, '
+                  '\$${monthlyAmount.toStringAsFixed(2)}, due on $dateStr',
               child: Container(
                 padding: EdgeInsets.all(12.w),
                 decoration: BoxDecoration(
@@ -92,7 +93,8 @@ class RepaymentScheduleWidget extends StatelessWidget {
                     ),
                     Text(
                       '\$${monthlyAmount.toStringAsFixed(2)}',
-                      semanticsLabel: '${monthlyAmount.toStringAsFixed(2)} dollars',
+                      semanticsLabel:
+                          '${monthlyAmount.toStringAsFixed(2)} dollars',
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontWeight: FontWeight.bold,

@@ -15,18 +15,20 @@ class ProductImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16.r),
-        child: CachedNetworkImage(
-          imageUrl: imageUrl,
-          height: 250.h,
-          width: double.infinity,
-          fit: BoxFit.contain,
-          semanticLabel: 'Full size image of $productName',
-          errorWidget: (context, url, error) => Icon(
-            Icons.image_not_supported,
-            size: 100.h,
-            color: Colors.grey,
+      child: Semantics(
+        label: 'Full size image of $productName',
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16.r),
+          child: CachedNetworkImage(
+            imageUrl: imageUrl,
+            height: 250.h,
+            width: double.infinity,
+            fit: BoxFit.contain,
+            errorWidget: (context, url, error) => Icon(
+              Icons.image_not_supported,
+              size: 100.h,
+              color: Colors.grey,
+            ),
           ),
         ),
       ),

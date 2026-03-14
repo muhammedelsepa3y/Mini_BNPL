@@ -28,6 +28,6 @@ void main() {
 
     final result = await useCase(NoParams());
 
-    expect(result, Right(tProducts));
+    expect(result, Right<dynamic, List<Product>>(tProducts));
   });
 }

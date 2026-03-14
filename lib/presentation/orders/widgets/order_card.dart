@@ -17,7 +17,8 @@ class OrderCard extends StatelessWidget {
     final dateStr = DateFormat('MMM dd, yyyy HH:mm').format(order.createdAt);
 
     return Semantics(
-      label: 'Order for ${order.product.name}, Status: ${order.status}, Price: ${order.product.price.toStringAsFixed(2)} dollars',
+      label: 'Order for ${order.product.name}, Status: ${order.status}, '
+          'Price: ${order.product.price.toStringAsFixed(2)} dollars',
       child: Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
@@ -105,7 +106,8 @@ class OrderCard extends StatelessWidget {
               children: [
                 Text(
                   '\$${order.product.price.toStringAsFixed(2)}',
-                  semanticsLabel: '${order.product.price.toStringAsFixed(2)} dollars',
+                  semanticsLabel:
+                      '${order.product.price.toStringAsFixed(2)} dollars',
                   style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.bold,

@@ -90,7 +90,8 @@ class ProductCard extends StatelessWidget {
                     SizedBox(height: 8.h),
                     Text(
                       '\$${product.price.toStringAsFixed(2)}',
-                      semanticsLabel: '${product.price.toStringAsFixed(2)} dollars',
+                      semanticsLabel:
+                          '${product.price.toStringAsFixed(2)} dollars',
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.bold,

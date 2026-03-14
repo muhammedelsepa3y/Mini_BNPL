@@ -69,7 +69,8 @@ class PaymentBreakdownWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 child: Semantics(
-                  label: 'Monthly Payment: \$${monthlyInstallment.toStringAsFixed(2)} per month',
+                  label: 'Monthly Payment: '
+                      '\$${monthlyInstallment.toStringAsFixed(2)} per month',
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -83,7 +84,9 @@ class PaymentBreakdownWidget extends StatelessWidget {
                       ),
                       Text(
                         '\$${monthlyInstallment.toStringAsFixed(2)}/mo',
-                        semanticsLabel: '${monthlyInstallment.toStringAsFixed(2)} dollars per month',
+                        semanticsLabel:
+                            '${monthlyInstallment.toStringAsFixed(2)} dollars '
+                            'per month',
                         style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.bold,
@@ -111,7 +114,7 @@ class PaymentBreakdownWidget extends StatelessWidget {
   Widget _buildBreakdownRow(String title, String value, {bool isBold = false}) {
     // Determine a semantic label for the value if it's a price
     String? semanticsLabel;
-    if (value.startsWith('\$') || value.startsWith('+\$')) {
+    if (value.startsWith(r'$') || value.startsWith(r'+$')) {
       final numericPart = value.replaceAll(RegExp(r'[^\d.]'), '');
       semanticsLabel = '$numericPart dollars';
     }

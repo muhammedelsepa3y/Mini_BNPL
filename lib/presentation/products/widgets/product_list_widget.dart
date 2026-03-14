@@ -54,11 +54,15 @@ class ProductListWidget extends StatelessWidget {
               itemBuilder: (context, index, realIndex) {
                 final plan = installments[index];
                 return Semantics(
-                  label: 'Promotion: ${plan.durationMonths} months plan with ${plan.interestRate} percent interest',
+                  label: 'Promotion: ${plan.durationMonths} months plan with '
+                      '${plan.interestRate} percent interest',
                   child: Container(
                     width: double.infinity,
                     alignment: Alignment.center,
-                    margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: 5.w,
+                      vertical: 6.h,
+                    ),
                     padding: EdgeInsets.all(14.w),
                     decoration: BoxDecoration(
                       color: Colors.white,
