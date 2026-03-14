@@ -1,6 +1,7 @@
 import 'package:bnpl_app/core/constants/api_endpoints.dart';
 import 'package:bnpl_app/core/network/network_service.dart';
 import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/data/models/order_model.dart';
 import 'package:bnpl_app/data/models/product_model.dart';
 
 abstract class BnplRemoteDataSource {
@@ -9,6 +10,7 @@ abstract class BnplRemoteDataSource {
   Future<List<AvailablePlanModel>> getAllInstallments();
   Future<int> createOrder(int productId, int planId);
   Future<bool> checkCard(Map<String, dynamic> cardDetails);
+  Future<List<OrderModel>> getOrders();
 }
 
 class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
@@ -18,9 +20,9 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<List<ProductModel>> getAllProducts() async {
-    final response = await networkService.get<dynamic>(ApiEndpoints.products);
+    final response = await networkService.get(ApiEndpoints.products);
     final dataList = response is List
-        ? response
+        ? response as List<dynamic>
         : ((response as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [];
     return dataList
         .map((json) => ProductModel.fromJson(json as Map<String, dynamic>))
@@ -29,10 +31,9 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<List<AvailablePlanModel>> getAllInstallments() async {
-    final response =
-        await networkService.get<dynamic>(ApiEndpoints.installmentPlans);
+    final response = await networkService.get(ApiEndpoints.installmentPlans);
     final dataList = response is List
-        ? response
+        ? response as List<dynamic>
         : ((response as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [];
     return dataList
         .map(
@@ -43,8 +44,7 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<ProductModel> getProductDetails(int id) async {
-    final response =
-        await networkService.get<dynamic>(ApiEndpoints.productDetails(id));
+    final response = await networkService.get(ApiEndpoints.productDetails(id));
     final data = response is Map
         ? (response as Map<String, dynamic>)['data'] ?? response
         : response;
@@ -53,7 +53,7 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<int> createOrder(int productId, int planId) async {
-    final response = await networkService.post<dynamic>(
+    final response = await networkService.post(
       ApiEndpoints.orders,
       data: {
         'product': productId,
@@ -68,7 +68,7 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
   @override
   Future<bool> checkCard(Map<String, dynamic> cardDetails) async {
-    final response = await networkService.post<dynamic>(
+    final response = await networkService.post(
       ApiEndpoints.checkCard,
       data: cardDetails,
     );
@@ -80,4 +80,17 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
 
     return false;
   }
+
+  @override
+  Future<List<OrderModel>> getOrders() async {
+    // ignore: inference_failure_on_function_invocation, networkService returns dynamic
+    final response = await networkService.get(ApiEndpoints.orders);
+    final dataList = response is List
+        ? response as List<dynamic>
+        : ((response as Map<String, dynamic>)['data'] as List<dynamic>?) ?? [];
+    return dataList
+        .map((json) => OrderModel.fromJson(json as Map<String, dynamic>))
+        .toList();
+  }
+
 }

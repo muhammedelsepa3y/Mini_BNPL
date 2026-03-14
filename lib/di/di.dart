@@ -8,6 +8,7 @@ import 'package:bnpl_app/domain/usecases/create_new_order.dart';
 import 'package:bnpl_app/domain/usecases/get_all_installments.dart';
 import 'package:bnpl_app/domain/usecases/get_all_products.dart';
 import 'package:bnpl_app/domain/usecases/get_product_details.dart';
+import 'package:bnpl_app/domain/usecases/get_orders.dart';
 import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
 import 'package:bnpl_app/presentation/product_details/bloc/product_details_bloc.dart';
 import 'package:bnpl_app/presentation/products/bloc/products_bloc.dart';
@@ -40,6 +41,7 @@ Future<void> init() async {
     ..registerLazySingleton(() => GetProductDetails(sl()))
     ..registerLazySingleton(() => CreateNewOrder(sl()))
     ..registerLazySingleton(() => CheckPaymentCard(sl()))
+    ..registerLazySingleton(() => GetOrders(sl()))
     ..registerLazySingleton<BnplRepository>(
       () => BnplRepositoryImpl(
         remoteDataSource: sl(),
@@ -52,7 +54,7 @@ Future<void> init() async {
     ..registerLazySingleton<BnplLocalDataSource>(
       () => BnplLocalDataSourceImpl(sharedPreferences: sl()),
     )
-    ..registerLazySingleton(NetworkService.new);
+    ..registerLazySingleton(() => NetworkService());
 
   final sharedPreferences = await SharedPreferences.getInstance();
   sl.registerLazySingleton(() => sharedPreferences);

@@ -54,7 +54,6 @@ class OrderConfirmationView extends StatelessWidget {
           if (state is OrderCreatedSuccess) {
             context.goNamed(
               AppRouteConst.paymentName,
-              pathParameters: {'id': product.id.toString()},
               extra: state.orderId,
             );
           } else if (state is OrderFlowError) {

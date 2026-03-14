@@ -97,8 +97,7 @@ class _PaymentViewState extends State<PaymentView> {
                                               'expiry_date': expiryDate,
                                               'cvv': cvvCode,
                                               'card_holder': cardHolderName,
-                                              'order_id': widget.orderId,
-                                            }),
+                                            }, widget.orderId),
                                           );
                                         }
                                       },
@@ -191,7 +190,7 @@ class _PaymentViewState extends State<PaymentView> {
                     onPressed: () {
                       context
                         ..pop()
-                        ..goNamed(AppRouteConst.productsName);
+                        ..goNamed(AppRouteConst.ordersName);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,

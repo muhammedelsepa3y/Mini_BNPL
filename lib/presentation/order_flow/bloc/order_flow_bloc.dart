@@ -45,7 +45,7 @@ class OrderFlowBloc extends Bloc<OrderFlowEvent, OrderFlowState> {
     );
     result.fold(
       (failure) => emit(OrderFlowError(failure.message)),
-      (success) {
+      (success) async {
         if (success) {
           emit(PaymentSuccess());
         } else {

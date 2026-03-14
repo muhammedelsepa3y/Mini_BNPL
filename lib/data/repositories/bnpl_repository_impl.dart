@@ -2,9 +2,10 @@ import 'package:bnpl_app/core/network/app_exception.dart';
 import 'package:bnpl_app/data/datasources/bnpl_local_data_source.dart';
 import 'package:bnpl_app/data/datasources/bnpl_remote_data_source.dart';
 import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/domain/entities/order.dart';
 import 'package:bnpl_app/domain/entities/product.dart';
 import 'package:bnpl_app/domain/repositiories/bnpl_repository.dart';
-import 'package:dartz/dartz.dart';
+import 'package:dartz/dartz.dart' hide Order;
 
 class BnplRepositoryImpl implements BnplRepository {
   BnplRepositoryImpl({
@@ -81,6 +82,23 @@ class BnplRepositoryImpl implements BnplRepository {
   }
 
   @override
+  Future<Either<AppException, List<Order>>> getOrders() async {
+    try {
+      final remoteOrders = await remoteDataSource.getOrders();
+      await localDataSource.cacheOrders(remoteOrders);
+      return Right(remoteOrders);
+    } on Exception catch (e) {
+      try {
+        final localOrders = await localDataSource.getLastOrders();
+        return Right(localOrders);
+      } on Exception catch (_) {
+        if (e is AppException) return Left(e);
+        return Left(AppException.unknown(e));
+      }
+    }
+  }
+
+  @override
   Future<Either<AppException, bool>> checkCard(
     Map<String, dynamic> cardDetails,
   ) async {
@@ -93,3 +111,4 @@ class BnplRepositoryImpl implements BnplRepository {
     }
   }
 }
+

@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:bnpl_app/core/constants/app_constants.dart';
 import 'package:bnpl_app/core/network/app_exception.dart';
 import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/data/models/order_model.dart';
 import 'package:bnpl_app/data/models/product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +12,8 @@ abstract class BnplLocalDataSource {
   Future<void> cacheProducts(List<ProductModel> productsToCache);
   Future<List<AvailablePlanModel>> getLastInstallments();
   Future<void> cacheInstallments(List<AvailablePlanModel> installmentsToCache);
+  Future<List<OrderModel>> getLastOrders();
+  Future<void> cacheOrders(List<OrderModel> ordersToCache);
 }
 
 class BnplLocalDataSourceImpl implements BnplLocalDataSource {
@@ -72,6 +74,31 @@ class BnplLocalDataSourceImpl implements BnplLocalDataSource {
       return Future.value(
         decodedJson
             .map((e) => AvailablePlanModel.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+    } else {
+      throw const AppException(message: 'No cached data present');
+    }
+  }
+
+  @override
+  Future<void> cacheOrders(List<OrderModel> ordersToCache) {
+    return sharedPreferences.setString(
+      AppConstants.ordersCacheKey,
+      json.encode(ordersToCache.map((e) => e.toJson()).toList()),
+    );
+  }
+
+  @override
+  Future<List<OrderModel>> getLastOrders() {
+    final jsonString = sharedPreferences.getString(
+      AppConstants.ordersCacheKey,
+    );
+    if (jsonString != null) {
+      final decodedJson = json.decode(jsonString) as List<dynamic>;
+      return Future.value(
+        decodedJson
+            .map((e) => OrderModel.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
     } else {

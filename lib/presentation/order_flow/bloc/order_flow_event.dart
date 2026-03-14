@@ -18,10 +18,11 @@ class CreateOrderEvent extends OrderFlowEvent {
 }
 
 class SubmitPaymentEvent extends OrderFlowEvent {
-  const SubmitPaymentEvent(this.cardDetails);
+  const SubmitPaymentEvent(this.cardDetails, this.orderId);
 
   final Map<String, dynamic> cardDetails;
+  final int orderId;
 
   @override
-  List<Object> get props => [cardDetails];
+  List<Object> get props => [cardDetails, orderId];
 }
