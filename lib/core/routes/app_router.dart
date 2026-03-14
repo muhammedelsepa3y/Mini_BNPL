@@ -1,20 +1,20 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/domain/entities/available_plan.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/presentation/order_flow/views/order_confirmation_view.dart';
+import 'package:bnpl_app/presentation/order_flow/views/payment_view.dart';
+import 'package:bnpl_app/presentation/order_flow/views/plan_selection_view.dart';
+import 'package:bnpl_app/presentation/orders/orders_view.dart';
+import 'package:bnpl_app/presentation/product_details/product_details_view.dart';
+import 'package:bnpl_app/presentation/products/products_view.dart';
+import 'package:bnpl_app/presentation/shell/main_shell_view.dart';
+import 'package:bnpl_app/presentation/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'app_route_const.dart';
-import '../../presentation/splash/splash_view.dart';
-import '../../presentation/products/products_view.dart';
-
-import '../../presentation/shell/main_shell_view.dart';
-import '../../presentation/orders/orders_view.dart';
-import '../../presentation/product_details/product_details_view.dart';
-import '../../presentation/order_flow/views/plan_selection_view.dart';
-import '../../presentation/order_flow/views/order_confirmation_view.dart';
-import '../../presentation/order_flow/views/payment_view.dart';
-import '../../domain/entities/product.dart';
-import '../../domain/entities/available_plan.dart';
 
 class AppRouter {
-  static final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> _rootNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   static GoRouter returnRouter() {
     return GoRouter(
@@ -56,7 +56,7 @@ class AppRouter {
                           name: AppRouteConst.planSelectionName,
                           path: AppRouteConst.planSelection,
                           builder: (context, state) {
-                            final product = state.extra as Product;
+                            final product = state.extra! as Product;
                             return PlanSelectionView(product: product);
                           },
                         ),
@@ -64,7 +64,7 @@ class AppRouter {
                           name: AppRouteConst.orderConfirmationName,
                           path: AppRouteConst.orderConfirmation,
                           builder: (context, state) {
-                            final args = state.extra as Map<String, dynamic>;
+                            final args = state.extra! as Map<String, dynamic>;
                             return OrderConfirmationView(
                               product: args['product'] as Product,
                               selectedPlan: args['plan'] as AvailablePlan,
@@ -75,7 +75,7 @@ class AppRouter {
                           name: AppRouteConst.paymentName,
                           path: AppRouteConst.payment,
                           builder: (context, state) {
-                            final orderId = state.extra as int;
+                            final orderId = state.extra! as int;
                             return PaymentView(orderId: orderId);
                           },
                         ),

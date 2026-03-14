@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RepaymentScheduleWidget extends StatelessWidget {
-  final int durationMonths;
-  final double monthlyAmount;
-
   const RepaymentScheduleWidget({
-    super.key,
     required this.durationMonths,
     required this.monthlyAmount,
+    super.key,
   });
+
+  final int durationMonths;
+  final double monthlyAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,9 @@ class RepaymentScheduleWidget extends StatelessWidget {
           separatorBuilder: (context, index) => SizedBox(height: 12.h),
           itemBuilder: (context, index) {
             final date = DateTime.now().add(Duration(days: (index + 1) * 30));
-            final dateStr = '${date.day} ${_getMonthName(date.month)} ${date.year}';
-            
+            final dateStr =
+                '${date.day} ${_getMonthName(date.month)} ${date.year}';
+
             return Container(
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
@@ -48,7 +49,9 @@ class RepaymentScheduleWidget extends StatelessWidget {
                     height: 32.w,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                      color: Theme.of(
+                        context,
+                      ).primaryColor.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: Text(
@@ -102,8 +105,18 @@ class RepaymentScheduleWidget extends StatelessWidget {
 
   String _getMonthName(int month) {
     const months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return months[month - 1];
   }

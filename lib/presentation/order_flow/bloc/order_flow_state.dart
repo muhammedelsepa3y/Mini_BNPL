@@ -12,20 +12,21 @@ class OrderFlowInitial extends OrderFlowState {}
 class OrderFlowLoading extends OrderFlowState {}
 
 class OrderCreatedSuccess extends OrderFlowState {
-  final int orderId;
   const OrderCreatedSuccess(this.orderId);
+
+  final int orderId;
 
   @override
   List<Object> get props => [orderId];
 }
+
 class OrderFlowError extends OrderFlowState {
-  final String message;
   const OrderFlowError(this.message);
+
+  final String message;
 
   @override
   List<Object> get props => [message];
 }
 
 class PaymentSuccess extends OrderFlowState {}
-
-

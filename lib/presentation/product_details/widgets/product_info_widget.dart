@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductInfoWidget extends StatelessWidget {
-  final String name;
-  final double price;
-  final String description;
-
   const ProductInfoWidget({
-    super.key,
     required this.name,
     required this.price,
     required this.description,
+    super.key,
   });
+
+  final String name;
+  final double price;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,9 @@ class ProductInfoWidget extends StatelessWidget {
         ),
         SizedBox(height: 8.h),
         Text(
-          description.isEmpty ? 'No description available for this product.' : description,
+          description.isEmpty
+              ? 'No description available for this product.'
+              : description,
           style: TextStyle(
             fontSize: 14.sp,
             color: const Color(0xFF6B7280),

@@ -1,16 +1,16 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/routes/app_route_const.dart';
-import '../../../../domain/entities/product.dart';
 
 class BuyNowBottomBarWidget extends StatelessWidget {
-  final Product product;
-
   const BuyNowBottomBarWidget({
-    super.key,
     required this.product,
+    super.key,
   });
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,8 @@ class BuyNowBottomBarWidget extends StatelessWidget {
           width: double.infinity,
           height: 54.h,
           child: ElevatedButton(
-            onPressed: () {
-              context.pushNamed(
+            onPressed: () async {
+              await context.pushNamed(
                 AppRouteConst.planSelectionName,
                 pathParameters: {'id': product.id.toString()},
                 extra: product,

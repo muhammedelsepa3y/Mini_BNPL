@@ -8,17 +8,19 @@ abstract class OrderFlowEvent extends Equatable {
 }
 
 class CreateOrderEvent extends OrderFlowEvent {
+  const CreateOrderEvent(this.productId, this.planId);
+
   final int productId;
   final int planId;
-  const CreateOrderEvent(this.productId, this.planId);
 
   @override
   List<Object> get props => [productId, planId];
 }
 
 class SubmitPaymentEvent extends OrderFlowEvent {
-  final Map<String, dynamic> cardDetails;
   const SubmitPaymentEvent(this.cardDetails);
+
+  final Map<String, dynamic> cardDetails;
 
   @override
   List<Object> get props => [cardDetails];

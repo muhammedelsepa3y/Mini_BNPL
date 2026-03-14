@@ -1,18 +1,18 @@
+import 'package:bnpl_app/domain/entities/available_plan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../domain/entities/available_plan.dart';
 
 class InstallmentPlansSelector extends StatelessWidget {
-  final List<AvailablePlan> plans;
-  final AvailablePlan? selectedPlan;
-  final ValueChanged<AvailablePlan> onPlanSelected;
-
   const InstallmentPlansSelector({
-    super.key,
     required this.plans,
     required this.selectedPlan,
     required this.onPlanSelected,
+    super.key,
   });
+
+  final List<AvailablePlan> plans;
+  final AvailablePlan? selectedPlan;
+  final ValueChanged<AvailablePlan> onPlanSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +39,21 @@ class InstallmentPlansSelector extends StatelessWidget {
             itemBuilder: (context, index) {
               final plan = plans[index];
               final isSelected = selectedPlan?.id == plan.id;
-              
+
               return GestureDetector(
                 onTap: () => onPlanSelected(plan),
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+                    color: isSelected
+                        ? Theme.of(context).primaryColor
+                        : Colors.white,
                     borderRadius: BorderRadius.circular(24.r),
                     border: Border.all(
-                      color: isSelected 
-                        ? Theme.of(context).primaryColor 
-                        : Colors.grey.shade300,
+                      color: isSelected
+                          ? Theme.of(context).primaryColor
+                          : Colors.grey.shade300,
                     ),
                   ),
                   child: Text(

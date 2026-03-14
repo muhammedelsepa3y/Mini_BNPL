@@ -1,20 +1,24 @@
+import 'package:bnpl_app/di/di.dart';
+import 'package:bnpl_app/presentation/product_details/bloc/product_details_bloc.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/product_details_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../di/di.dart';
-import 'bloc/product_details_bloc.dart';
-import 'widgets/product_details_content.dart';
-
 class ProductDetailsView extends StatelessWidget {
-  final String id;
+  const ProductDetailsView({
+    required this.id,
+    super.key,
+  });
 
-  const ProductDetailsView({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<ProductDetailsBloc>()..add(FetchProductDetailsEvent(int.parse(id))),
+      create: (context) =>
+          sl<ProductDetailsBloc>()
+            ..add(FetchProductDetailsEvent(int.parse(id))),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -25,7 +29,9 @@ class ProductDetailsView extends StatelessWidget {
               builder: (context) => IconButton(
                 icon: const Icon(Icons.refresh),
                 onPressed: () {
-                  context.read<ProductDetailsBloc>().add(FetchProductDetailsEvent(int.parse(id)));
+                  context.read<ProductDetailsBloc>().add(
+                    FetchProductDetailsEvent(int.parse(id)),
+                  );
                 },
               ),
             ),
@@ -33,7 +39,8 @@ class ProductDetailsView extends StatelessWidget {
         ),
         body: BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
           builder: (context, state) {
-            if (state is ProductDetailsLoading || state is ProductDetailsInitial) {
+            if (state is ProductDetailsLoading ||
+                state is ProductDetailsInitial) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ProductDetailsError) {
               return Center(
@@ -47,7 +54,9 @@ class ProductDetailsView extends StatelessWidget {
                     SizedBox(height: 16.h),
                     ElevatedButton(
                       onPressed: () {
-                        context.read<ProductDetailsBloc>().add(FetchProductDetailsEvent(int.parse(id)));
+                        context.read<ProductDetailsBloc>().add(
+                          FetchProductDetailsEvent(int.parse(id)),
+                        );
                       },
                       child: const Text('Retry'),
                     ),
@@ -66,4 +75,3 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 }
-

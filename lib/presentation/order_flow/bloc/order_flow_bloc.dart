@@ -1,13 +1,10 @@
+import 'package:bnpl_app/domain/usecases/check_payment_card.dart';
+import 'package:bnpl_app/domain/usecases/create_new_order.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_event.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../domain/usecases/check_payment_card.dart';
-import '../../../domain/usecases/create_new_order.dart';
-import 'order_flow_event.dart';
-import 'order_flow_state.dart';
 
 class OrderFlowBloc extends Bloc<OrderFlowEvent, OrderFlowState> {
-  final CreateOrder createOrder;
-  final CheckCard checkCard;
-
   OrderFlowBloc({
     required this.createOrder,
     required this.checkCard,
@@ -16,15 +13,20 @@ class OrderFlowBloc extends Bloc<OrderFlowEvent, OrderFlowState> {
     on<SubmitPaymentEvent>(_onSubmitPayment);
   }
 
+  final CreateNewOrder createOrder;
+  final CheckPaymentCard checkCard;
+
   Future<void> _onCreateOrder(
     CreateOrderEvent event,
     Emitter<OrderFlowState> emit,
   ) async {
     emit(OrderFlowLoading());
-    final result = await createOrder(CreateOrderParams(
-      productId: event.productId,
-      planId: event.planId,
-    ));
+    final result = await createOrder(
+      CreateOrderParams(
+        productId: event.productId,
+        planId: event.planId,
+      ),
+    );
     result.fold(
       (failure) => emit(OrderFlowError(failure.message)),
       (orderId) => emit(OrderCreatedSuccess(orderId)),
@@ -36,9 +38,11 @@ class OrderFlowBloc extends Bloc<OrderFlowEvent, OrderFlowState> {
     Emitter<OrderFlowState> emit,
   ) async {
     emit(OrderFlowLoading());
-    final result = await checkCard(CheckCardParams(
-      cardDetails: event.cardDetails,
-    ));
+    final result = await checkCard(
+      CheckCardParams(
+        cardDetails: event.cardDetails,
+      ),
+    );
     result.fold(
       (failure) => emit(OrderFlowError(failure.message)),
       (success) {

@@ -1,42 +1,41 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/di/di.dart';
+import 'package:bnpl_app/domain/entities/available_plan.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_event.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_state.dart';
+import 'package:bnpl_app/presentation/widgets/repayment_schedule_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 
-import '../../../../core/routes/app_route_const.dart';
-import '../../../../di/di.dart';
-import '../../../../domain/entities/product.dart';
-import '../../../../domain/entities/available_plan.dart';
-import '../bloc/order_flow_bloc.dart';
-import '../bloc/order_flow_event.dart';
-import '../bloc/order_flow_state.dart';
-
-import '../../widgets/repayment_schedule_widget.dart';
-
 class OrderConfirmationView extends StatelessWidget {
+  const OrderConfirmationView({
+    required this.product,
+    required this.selectedPlan,
+    super.key,
+  });
+
   final Product product;
   final AvailablePlan selectedPlan;
 
-  const OrderConfirmationView({
-    super.key,
-    required this.product,
-    required this.selectedPlan,
-  });
-
   Future<bool> _authenticate() async {
-    final LocalAuthentication auth = LocalAuthentication();
+    final auth = LocalAuthentication();
     try {
-      final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-      final bool canAuthenticate = canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+      final canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+      final canAuthenticate =
+          canAuthenticateWithBiometrics || await auth.isDeviceSupported();
 
       if (!canAuthenticate) return true;
 
       return await auth.authenticate(
         localizedReason: 'Please authenticate to confirm your order',
-        biometricOnly: true
+        biometricOnly: true,
       );
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint(e.toString());
       return false;
     }
@@ -119,7 +118,8 @@ class OrderConfirmationView extends StatelessWidget {
                                 child: const Divider(),
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Plan Duration',
@@ -140,7 +140,8 @@ class OrderConfirmationView extends StatelessWidget {
                               ),
                               SizedBox(height: 8.h),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'Interest Rate',
@@ -172,7 +173,10 @@ class OrderConfirmationView extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 20.h,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
@@ -195,11 +199,16 @@ class OrderConfirmationView extends StatelessWidget {
                                 final authSuccess = await _authenticate();
                                 if (authSuccess && context.mounted) {
                                   context.read<OrderFlowBloc>().add(
-                                    CreateOrderEvent(product.id, selectedPlan.id),
+                                    CreateOrderEvent(
+                                      product.id,
+                                      selectedPlan.id,
+                                    ),
                                   );
                                 } else if (context.mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Authentication failed.')),
+                                    const SnackBar(
+                                      content: Text('Authentication failed.'),
+                                    ),
                                   );
                                 }
                               },
@@ -211,7 +220,9 @@ class OrderConfirmationView extends StatelessWidget {
                           elevation: 0,
                         ),
                         child: state is OrderFlowLoading
-                            ? const CircularProgressIndicator(color: Colors.white)
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
                             : Text(
                                 'Confirm Order',
                                 style: TextStyle(

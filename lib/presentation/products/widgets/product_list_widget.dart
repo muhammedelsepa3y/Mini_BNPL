@@ -1,20 +1,20 @@
+import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/presentation/products/widgets/info_item.dart';
+import 'package:bnpl_app/presentation/products/widgets/product_card.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import '../../../domain/entities/product.dart';
-import '../../../data/models/available_plan_model.dart';
-import 'info_item.dart';
-import 'product_card.dart';
 
 class ProductListWidget extends StatelessWidget {
-  final List<Product> products;
-  final List<AvailablePlanModel> installments;
-
   const ProductListWidget({
-    super.key,
     required this.products,
     required this.installments,
+    super.key,
   });
+
+  final List<Product> products;
+  final List<AvailablePlanModel> installments;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +48,7 @@ class ProductListWidget extends StatelessWidget {
               options: CarouselOptions(
                 height: 140.h,
                 enlargeCenterPage: true,
-                enableInfiniteScroll: true,
                 autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 4),
                 viewportFraction: 0.85,
               ),
               itemBuilder: (context, index, realIndex) {
@@ -64,7 +62,9 @@ class ProductListWidget extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16.r),
                     border: Border.all(
-                      color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
+                      color: Theme.of(
+                        context,
+                      ).primaryColor.withValues(alpha: 0.12),
                       width: 1.2,
                     ),
                     boxShadow: [
@@ -80,80 +80,82 @@ class ProductListWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              "${plan.durationMonths} Months",
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF1F2937),
-                                height: 1.3,
-                              ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          SizedBox(width: 8.w),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).primaryColor.withValues(alpha: 0.10),
-                              borderRadius: BorderRadius.circular(30.r),
-                            ),
-                            child: Text(
-                              '${plan.interestRate}%',
-                              style: TextStyle(
-                                fontSize: 11.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 12.h),
-
-                      Container(
-                        padding: EdgeInsets.all(10.w),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF8FAFC),
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        child: Row(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: InfoItem(
-                                title: 'Duration',
-                                value: '${plan.durationMonths} Months',
+                              child: Text(
+                                '${plan.durationMonths} Months',
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF1F2937),
+                                  height: 1.3,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
+                            SizedBox(width: 8.w),
                             Container(
-                              width: 1,
-                              height: 34.h,
-                              color: Colors.grey.shade300,
-                            ),
-                            Expanded(
-                              child: InfoItem(
-                                title: 'Interest Rate',
-                                value: '${plan.interestRate}%',
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 10.w,
+                                vertical: 5.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Theme.of(
+                                  context,
+                                ).primaryColor.withValues(alpha: 0.10),
+                                borderRadius: BorderRadius.circular(30.r),
+                              ),
+                              child: Text(
+                                '${plan.interestRate}%',
+                                style: TextStyle(
+                                  fontSize: 11.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
+                        SizedBox(height: 12.h),
 
-
-                    ],
+                        Container(
+                          padding: EdgeInsets.all(10.w),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF8FAFC),
+                            borderRadius: BorderRadius.circular(12.r),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: InfoItem(
+                                  title: 'Duration',
+                                  value: '${plan.durationMonths} Months',
+                                ),
+                              ),
+                              Container(
+                                width: 1,
+                                height: 34.h,
+                                color: Colors.grey.shade300,
+                              ),
+                              Expanded(
+                                child: InfoItem(
+                                  title: 'Interest Rate',
+                                  value: '${plan.interestRate}%',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                 ),
                 );
               },
             ),
           ),
-
         ],
         SliverPadding(
           padding: EdgeInsets.all(16.w),
@@ -180,4 +182,3 @@ class ProductListWidget extends StatelessWidget {
     );
   }
 }
-

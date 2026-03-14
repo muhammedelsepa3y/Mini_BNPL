@@ -1,18 +1,22 @@
+import 'dart:async';
+
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/di/di.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_bloc.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_event.dart';
+import 'package:bnpl_app/presentation/order_flow/bloc/order_flow_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_route_const.dart';
-import '../../../../di/di.dart';
-import '../bloc/order_flow_bloc.dart';
-import '../bloc/order_flow_event.dart';
-import '../bloc/order_flow_state.dart';
-
 class PaymentView extends StatefulWidget {
-  final int orderId;
+  const PaymentView({
+    required this.orderId,
+    super.key,
+  });
 
-  const PaymentView({super.key, required this.orderId});
+  final int orderId;
 
   @override
   State<PaymentView> createState() => _PaymentViewState();
@@ -56,7 +60,7 @@ class _PaymentViewState extends State<PaymentView> {
                     cardHolderName: cardHolderName,
                     cvvCode: cvvCode,
                     showBackView: isCvvFocused,
-                    onCreditCardWidgetChange: (CreditCardBrand brand) {},
+                    onCreditCardWidgetChange: (brand) {},
                     bankName: 'BNPL Bank',
                     cardBgColor: Theme.of(context).primaryColor,
                     enableFloatingCard: true,
@@ -71,9 +75,6 @@ class _PaymentViewState extends State<PaymentView> {
                             obscureNumber: true,
                             cardNumber: cardNumber,
                             cvvCode: cvvCode,
-                            isHolderNameVisible: true,
-                            isCardNumberVisible: true,
-                            isExpiryDateVisible: true,
                             cardHolderName: cardHolderName,
                             expiryDate: expiryDate,
                             onCreditCardModelChange: onCreditCardModelChange,
@@ -91,23 +92,28 @@ class _PaymentViewState extends State<PaymentView> {
                                         if (formKey.currentState!.validate()) {
                                           context.read<OrderFlowBloc>().add(
                                             SubmitPaymentEvent({
-                                              "card_number": cardNumber.replaceAll(' ', ''),
-                                              "expiry_date": expiryDate,
-                                              "cvv": cvvCode,
-                                              "card_holder": cardHolderName,
-                                              "order_id": widget.orderId,
+                                              'card_number': cardNumber
+                                                  .replaceAll(' ', ''),
+                                              'expiry_date': expiryDate,
+                                              'cvv': cvvCode,
+                                              'card_holder': cardHolderName,
+                                              'order_id': widget.orderId,
                                             }),
                                           );
                                         }
                                       },
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor: Theme.of(
+                                    context,
+                                  ).primaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                 ),
                                 child: state is OrderFlowLoading
-                                    ? const CircularProgressIndicator(color: Colors.white)
+                                    ? const CircularProgressIndicator(
+                                        color: Colors.white,
+                                      )
                                     : const Text(
                                         'Pay Now',
                                         style: TextStyle(
@@ -144,60 +150,66 @@ class _PaymentViewState extends State<PaymentView> {
   }
 
   void _showSuccessDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.check_circle_outline,
-                color: Colors.green,
-                size: 80,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Payment Successful!',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+    unawaited(
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.check_circle_outline,
+                  color: Colors.green,
+                  size: 80,
                 ),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Your order has been approved.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
+                const SizedBox(height: 16),
+                const Text(
+                  'Payment Successful!',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    context.pop();
-                    context.goNamed(AppRouteConst.productsName);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 8),
+                const Text(
+                  'Your order has been approved.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context
+                        ..pop()
+                        ..goNamed(AppRouteConst.productsName);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: const Text(
+                      'Go back Home',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  child: const Text('Go back Home', style: TextStyle(color: Colors.white)),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

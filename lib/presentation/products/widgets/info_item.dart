@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InfoItem extends StatelessWidget {
-  final String title;
-  final String value;
-
   const InfoItem({
-    super.key,
     required this.title,
     required this.value,
+    super.key,
   });
+
+  final String title;
+  final String value;
 
   @override
   Widget build(BuildContext context) {

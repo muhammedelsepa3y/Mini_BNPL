@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MainShellView extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
-
   const MainShellView({
-    super.key,
     required this.navigationShell,
+    super.key,
   });
+
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {

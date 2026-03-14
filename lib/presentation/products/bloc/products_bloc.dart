@@ -1,23 +1,23 @@
+import 'package:bnpl_app/core/usecases/usecase.dart';
+import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/domain/usecases/get_all_installments.dart';
+import 'package:bnpl_app/domain/usecases/get_all_products.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../../../domain/entities/product.dart';
-import '../../../../data/models/available_plan_model.dart';
-import '../../../../domain/usecases/get_all_products.dart';
-import '../../../../domain/usecases/get_all_installments.dart';
 
 part 'products_event.dart';
 part 'products_state.dart';
 
 class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
-  final GetAllProducts getAllProducts;
-  final GetAllInstallments getAllInstallments;
-
   ProductsBloc({
     required this.getAllProducts,
     required this.getAllInstallments,
   }) : super(ProductsInitial()) {
     on<FetchProductsDataEvent>(_onFetchProductsData);
   }
+
+  final GetAllProducts getAllProducts;
+  final GetAllInstallments getAllInstallments;
 
   Future<void> _onFetchProductsData(
     FetchProductsDataEvent event,
@@ -37,10 +37,12 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
           },
           (installments) {
             if (!emit.isDone) {
-              emit(ProductsLoaded(
-                products: products,
-                installments: installments,
-              ));
+              emit(
+                ProductsLoaded(
+                  products: products,
+                  installments: installments,
+                ),
+              );
             }
           },
         );

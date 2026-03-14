@@ -1,21 +1,20 @@
+import 'package:bnpl_app/domain/entities/available_plan.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/buy_now_bottom_bar_widget.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/installment_plans_selector.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/payment_breakdown_widget.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/product_image_widget.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/product_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../domain/entities/available_plan.dart';
-import '../../../../domain/entities/product.dart';
-import 'buy_now_bottom_bar_widget.dart';
-import 'installment_plans_selector.dart';
-import 'payment_breakdown_widget.dart';
-import 'product_image_widget.dart';
-import 'product_info_widget.dart';
-
 class ProductDetailsContent extends StatefulWidget {
-  final Product product;
-
   const ProductDetailsContent({
-    super.key,
     required this.product,
+    super.key,
   });
+
+  final Product product;
 
   @override
   State<ProductDetailsContent> createState() => _ProductDetailsContentState();
@@ -46,7 +45,7 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
               children: [
                 ProductImageWidget(imageUrl: product.imageUrl),
                 SizedBox(height: 24.h),
-                
+
                 ProductInfoWidget(
                   name: product.name,
                   price: product.price,
@@ -84,4 +83,3 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
     );
   }
 }
-

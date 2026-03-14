@@ -1,20 +1,19 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/domain/entities/available_plan.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/installment_plans_selector.dart';
+import 'package:bnpl_app/presentation/product_details/widgets/payment_breakdown_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/routes/app_route_const.dart';
-import '../../../../domain/entities/product.dart';
-import '../../../../domain/entities/available_plan.dart';
-import '../../product_details/widgets/installment_plans_selector.dart';
-import '../../product_details/widgets/payment_breakdown_widget.dart';
-
 class PlanSelectionView extends StatefulWidget {
-  final Product product;
-
   const PlanSelectionView({
-    super.key,
     required this.product,
+    super.key,
   });
+
+  final Product product;
 
   @override
   State<PlanSelectionView> createState() => _PlanSelectionViewState();
@@ -89,10 +88,12 @@ class _PlanSelectionViewState extends State<PlanSelectionView> {
                 child: ElevatedButton(
                   onPressed: selectedPlan == null
                       ? null
-                      : () {
-                          context.pushNamed(
+                      : () async {
+                          await context.pushNamed(
                             AppRouteConst.orderConfirmationName,
-                            pathParameters: {'id': widget.product.id.toString()},
+                            pathParameters: {
+                              'id': widget.product.id.toString(),
+                            },
                             extra: {
                               'product': widget.product,
                               'plan': selectedPlan!,

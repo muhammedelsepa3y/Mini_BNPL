@@ -1,8 +1,8 @@
+import 'package:bnpl_app/presentation/products/bloc/products_bloc.dart';
+import 'package:bnpl_app/presentation/products/widgets/product_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'bloc/products_bloc.dart';
-import 'widgets/product_list_widget.dart';
 
 class ProductsView extends StatelessWidget {
   const ProductsView({super.key});
@@ -39,7 +39,9 @@ class ProductsView extends StatelessWidget {
                   SizedBox(height: 16.h),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<ProductsBloc>().add(FetchProductsDataEvent());
+                      context.read<ProductsBloc>().add(
+                        FetchProductsDataEvent(),
+                      );
                     },
                     child: const Text('Retry'),
                   ),

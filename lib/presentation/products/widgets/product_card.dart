@@ -1,20 +1,20 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import '../../../domain/entities/product.dart';
-import '../../../data/models/available_plan_model.dart';
-import '../../../core/routes/app_route_const.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
-  final List<AvailablePlanModel> installments;
-
   const ProductCard({
-    super.key,
     required this.product,
     required this.installments,
+    super.key,
   });
+
+  final Product product;
+  final List<AvailablePlanModel> installments;
 
   @override
   Widget build(BuildContext context) {

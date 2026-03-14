@@ -1,9 +1,9 @@
+import 'package:bnpl_app/core/routes/app_route_const.dart';
+import 'package:bnpl_app/presentation/products/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../core/routes/app_route_const.dart';
-import '../products/bloc/products_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -55,7 +55,9 @@ class _SplashViewState extends State<SplashView> {
                   if (state is ProductsError) {
                     return ElevatedButton(
                       onPressed: () {
-                        context.read<ProductsBloc>().add(FetchProductsDataEvent());
+                        context.read<ProductsBloc>().add(
+                          FetchProductsDataEvent(),
+                        );
                       },
                       child: const Text('Retry'),
                     );

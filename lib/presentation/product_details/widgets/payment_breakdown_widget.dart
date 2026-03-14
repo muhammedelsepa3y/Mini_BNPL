@@ -1,19 +1,19 @@
+import 'package:bnpl_app/domain/entities/available_plan.dart';
+import 'package:bnpl_app/presentation/widgets/repayment_schedule_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../domain/entities/available_plan.dart';
-import '../../widgets/repayment_schedule_widget.dart';
 
 class PaymentBreakdownWidget extends StatelessWidget {
+  const PaymentBreakdownWidget({
+    required this.selectedPlan,
+    required this.price,
+    this.repaymentScheduleWidget = true,
+    super.key,
+  });
+
   final AvailablePlan selectedPlan;
   final double price;
   final bool repaymentScheduleWidget;
-
-  const PaymentBreakdownWidget({
-    super.key,
-    required this.selectedPlan,
-    required this.price,
-    this.repaymentScheduleWidget=true
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,10 @@ class PaymentBreakdownWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16.h),
-              _buildBreakdownRow('Product Price', '\$${price.toStringAsFixed(2)}'),
+              _buildBreakdownRow(
+                'Product Price',
+                '\$${price.toStringAsFixed(2)}',
+              ),
               SizedBox(height: 8.h),
               _buildBreakdownRow(
                 'Interest (${selectedPlan.interestRate}%)',
@@ -90,14 +93,13 @@ class PaymentBreakdownWidget extends StatelessWidget {
             ],
           ),
         ),
-        if (repaymentScheduleWidget)...[
+        if (repaymentScheduleWidget) ...[
           SizedBox(height: 24.h),
           RepaymentScheduleWidget(
             durationMonths: selectedPlan.durationMonths,
             monthlyAmount: monthlyInstallment,
           ),
-        ]
-
+        ],
       ],
     );
   }
@@ -126,4 +128,3 @@ class PaymentBreakdownWidget extends StatelessWidget {
     );
   }
 }
-

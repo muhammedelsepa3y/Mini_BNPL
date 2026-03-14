@@ -1,5 +1,5 @@
-import '../../domain/entities/product.dart';
-import 'available_plan_model.dart';
+import 'package:bnpl_app/data/models/available_plan_model.dart';
+import 'package:bnpl_app/domain/entities/product.dart';
 
 class ProductModel extends Product {
   const ProductModel({
@@ -13,13 +13,19 @@ class ProductModel extends Product {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'] is int ? json['id'] as int : int.tryParse(json['id'].toString()) ?? 0,
+      id: json['id'] is int
+          ? json['id'] as int
+          : int.tryParse(json['id'].toString()) ?? 0,
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
       price: double.tryParse(json['price'].toString()) ?? 0.0,
-      imageUrl: json['image_url'] as String? ?? json['imageUrl'] as String? ?? '',
-      availablePlans: (json['available_plans'] as List<dynamic>?)
-              ?.map((e) => AvailablePlanModel.fromJson(e as Map<String, dynamic>))
+      imageUrl:
+          json['image_url'] as String? ?? json['imageUrl'] as String? ?? '',
+      availablePlans:
+          (json['available_plans'] as List<dynamic>?)
+              ?.map(
+                (e) => AvailablePlanModel.fromJson(e as Map<String, dynamic>),
+              )
               .toList() ??
           const [],
     );
@@ -32,7 +38,9 @@ class ProductModel extends Product {
       'description': description,
       'price': price.toStringAsFixed(2),
       'image_url': imageUrl,
-      'available_plans': availablePlans.map((e) => (e as AvailablePlanModel).toJson()).toList(),
+      'available_plans': availablePlans
+          .map((e) => (e as AvailablePlanModel).toJson())
+          .toList(),
     };
   }
 }
