@@ -98,80 +98,84 @@ class OrderConfirmationView extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 16.h),
-                        Container(
-                          padding: EdgeInsets.all(16.w),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF8FAFC),
-                            borderRadius: BorderRadius.circular(16.r),
-                            border: Border.all(color: Colors.grey.shade200),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                product.name,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
+                        Semantics(
+                          label: 'Order Summary for ${product.name}, Price: ${product.price.toStringAsFixed(2)} dollars, Plan: ${selectedPlan.durationMonths} months at ${selectedPlan.interestRate} percent interest',
+                          child: Container(
+                            padding: EdgeInsets.all(16.w),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF8FAFC),
+                              borderRadius: BorderRadius.circular(16.r),
+                              border: Border.all(color: Colors.grey.shade200),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name,
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 8.h),
-                              Text(
-                                '\$${product.price.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.w600,
+                                SizedBox(height: 8.h),
+                                Text(
+                                  '\$${product.price.toStringAsFixed(2)}',
+                                  semanticsLabel: '${product.price.toStringAsFixed(2)} dollars',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12.h),
-                                child: const Divider(),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Plan Duration',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xFF6B7280),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 12.h),
+                                  child: const Divider(),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Plan Duration',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: const Color(0xFF6B7280),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '${selectedPlan.durationMonths} Months',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xFF1F2937),
+                                    Text(
+                                      '${selectedPlan.durationMonths} Months',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color(0xFF1F2937),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 8.h),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Interest Rate',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      color: const Color(0xFF6B7280),
+                                  ],
+                                ),
+                                SizedBox(height: 8.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Interest Rate',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        color: const Color(0xFF6B7280),
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '${selectedPlan.interestRate}%',
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: const Color(0xFF1F2937),
+                                    Text(
+                                      '${selectedPlan.interestRate}%',
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: const Color(0xFF1F2937),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(height: 24.h),
@@ -236,6 +240,7 @@ class OrderConfirmationView extends StatelessWidget {
                               )
                             : Text(
                                 'Confirm Order',
+                                semanticsLabel: 'Confirm your order for ${product.name}',
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.bold,

@@ -29,6 +29,7 @@ class ProductInfoWidget extends StatelessWidget {
         SizedBox(height: 8.h),
         Text(
           '\$${price.toStringAsFixed(2)}',
+          semanticsLabel: '${price.toStringAsFixed(2)} dollars',
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.w800,

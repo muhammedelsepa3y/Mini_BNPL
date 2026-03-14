@@ -68,26 +68,30 @@ class PaymentBreakdownWidget extends StatelessWidget {
                   color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12.r),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Monthly Payment',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
+                child: Semantics(
+                  label: 'Monthly Payment: \$${monthlyInstallment.toStringAsFixed(2)} per month',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Monthly Payment',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '\$${monthlyInstallment.toStringAsFixed(2)}/mo',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
+                      Text(
+                        '\$${monthlyInstallment.toStringAsFixed(2)}/mo',
+                        semanticsLabel: '${monthlyInstallment.toStringAsFixed(2)} dollars per month',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -105,26 +109,37 @@ class PaymentBreakdownWidget extends StatelessWidget {
   }
 
   Widget _buildBreakdownRow(String title, String value, {bool isBold = false}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: isBold ? const Color(0xFF1F2937) : const Color(0xFF6B7280),
-            fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+    // Determine a semantic label for the value if it's a price
+    String? semanticsLabel;
+    if (value.startsWith('\$') || value.startsWith('+\$')) {
+      final numericPart = value.replaceAll(RegExp(r'[^\d.]'), '');
+      semanticsLabel = '$numericPart dollars';
+    }
+
+    return Semantics(
+      label: '$title: $value',
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: isBold ? const Color(0xFF1F2937) : const Color(0xFF6B7280),
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+            ),
           ),
-        ),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: const Color(0xFF1F2937),
-            fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
+          Text(
+            value,
+            semanticsLabel: semanticsLabel,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: const Color(0xFF1F2937),
+              fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

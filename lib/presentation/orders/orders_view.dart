@@ -22,6 +22,7 @@ class OrdersView extends StatelessWidget {
             Builder(
               builder: (context) => IconButton(
                 icon: const Icon(Icons.refresh),
+                tooltip: 'Refresh orders list',
                 onPressed: () {
                   context.read<OrdersBloc>().add(FetchOrdersEvent());
                 },

@@ -43,7 +43,10 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProductImageWidget(imageUrl: product.imageUrl),
+                ProductImageWidget(
+                  imageUrl: product.imageUrl,
+                  productName: product.name,
+                ),
                 SizedBox(height: 24.h),
 
                 ProductInfoWidget(

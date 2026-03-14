@@ -16,6 +16,7 @@ class ProductsView extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
+            tooltip: 'Refresh products list',
             onPressed: () {
               context.read<ProductsBloc>().add(FetchProductsDataEvent());
             },

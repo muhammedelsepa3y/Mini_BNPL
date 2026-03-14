@@ -53,103 +53,105 @@ class ProductListWidget extends StatelessWidget {
               ),
               itemBuilder: (context, index, realIndex) {
                 final plan = installments[index];
-                return Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
-                  padding: EdgeInsets.all(14.w),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16.r),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).primaryColor.withValues(alpha: 0.12),
-                      width: 1.2,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.06),
-                        blurRadius: 18,
-                        offset: const Offset(0, 6),
+                return Semantics(
+                  label: 'Promotion: ${plan.durationMonths} months plan with ${plan.interestRate} percent interest',
+                  child: Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 6.h),
+                    padding: EdgeInsets.all(14.w),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16.r),
+                      border: Border.all(
+                        color: Theme.of(
+                          context,
+                        ).primaryColor.withValues(alpha: 0.12),
+                        width: 1.2,
                       ),
-                    ],
-                  ),
-                  child: SingleChildScrollView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                '${plan.durationMonths} Months',
-                                style: TextStyle(
-                                  fontSize: 15.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xFF1F2937),
-                                  height: 1.3,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            SizedBox(width: 8.w),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
-                                vertical: 5.h,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Theme.of(
-                                  context,
-                                ).primaryColor.withValues(alpha: 0.10),
-                                borderRadius: BorderRadius.circular(30.r),
-                              ),
-                              child: Text(
-                                '${plan.interestRate}%',
-                                style: TextStyle(
-                                  fontSize: 11.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                            ),
-                          ],
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.06),
+                          blurRadius: 18,
+                          offset: const Offset(0, 6),
                         ),
-                        SizedBox(height: 12.h),
-
-                        Container(
-                          padding: EdgeInsets.all(10.w),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFF8FAFC),
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                          child: Row(
+                      ],
+                    ),
+                    child: SingleChildScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Expanded(
-                                child: InfoItem(
-                                  title: 'Duration',
-                                  value: '${plan.durationMonths} Months',
+                                child: Text(
+                                  '${plan.durationMonths} Months',
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: const Color(0xFF1F2937),
+                                    height: 1.3,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
+                              SizedBox(width: 8.w),
                               Container(
-                                width: 1,
-                                height: 34.h,
-                                color: Colors.grey.shade300,
-                              ),
-                              Expanded(
-                                child: InfoItem(
-                                  title: 'Interest Rate',
-                                  value: '${plan.interestRate}%',
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w,
+                                  vertical: 5.h,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(
+                                    context,
+                                  ).primaryColor.withValues(alpha: 0.10),
+                                  borderRadius: BorderRadius.circular(30.r),
+                                ),
+                                child: Text(
+                                  '${plan.interestRate}%',
+                                  style: TextStyle(
+                                    fontSize: 11.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 12.h),
+                          Container(
+                            padding: EdgeInsets.all(10.w),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF8FAFC),
+                              borderRadius: BorderRadius.circular(12.r),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: InfoItem(
+                                    title: 'Duration',
+                                    value: '${plan.durationMonths} Months',
+                                  ),
+                                ),
+                                Container(
+                                  width: 1,
+                                  height: 34.h,
+                                  color: Colors.grey.shade300,
+                                ),
+                                Expanded(
+                                  child: InfoItem(
+                                    title: 'Interest Rate',
+                                    value: '${plan.interestRate}%',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

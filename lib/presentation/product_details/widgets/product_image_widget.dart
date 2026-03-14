@@ -5,10 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProductImageWidget extends StatelessWidget {
   const ProductImageWidget({
     required this.imageUrl,
+    required this.productName,
     super.key,
   });
 
   final String imageUrl;
+  final String productName;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class ProductImageWidget extends StatelessWidget {
           height: 250.h,
           width: double.infinity,
           fit: BoxFit.contain,
+          semanticLabel: 'Full size image of $productName',
           errorWidget: (context, url, error) => Icon(
             Icons.image_not_supported,
             size: 100.h,

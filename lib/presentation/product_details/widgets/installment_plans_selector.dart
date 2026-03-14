@@ -40,28 +40,34 @@ class InstallmentPlansSelector extends StatelessWidget {
               final plan = plans[index];
               final isSelected = selectedPlan?.id == plan.id;
 
-              return GestureDetector(
-                onTap: () => onPlanSelected(plan),
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: isSelected
-                        ? Theme.of(context).primaryColor
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(24.r),
-                    border: Border.all(
+              return Semantics(
+                label: '${plan.durationMonths} months installment plan',
+                selected: isSelected,
+                button: true,
+                onTapHint: 'Select ${plan.durationMonths} months plan',
+                child: GestureDetector(
+                  onTap: () => onPlanSelected(plan),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
                       color: isSelected
                           ? Theme.of(context).primaryColor
-                          : Colors.grey.shade300,
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(24.r),
+                      border: Border.all(
+                        color: isSelected
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey.shade300,
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    '${plan.durationMonths} Months',
-                    style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.bold,
-                      color: isSelected ? Colors.white : Colors.grey.shade700,
+                    child: Text(
+                      '${plan.durationMonths} Months',
+                      style: TextStyle(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.bold,
+                        color: isSelected ? Colors.white : Colors.grey.shade700,
+                      ),
                     ),
                   ),
                 ),

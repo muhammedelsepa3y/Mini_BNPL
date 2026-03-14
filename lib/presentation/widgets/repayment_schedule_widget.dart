@@ -35,66 +35,72 @@ class RepaymentScheduleWidget extends StatelessWidget {
             final dateStr =
                 '${date.day} ${_getMonthName(date.month)} ${date.year}';
 
-            return Container(
-              padding: EdgeInsets.all(12.w),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: Colors.grey.shade100),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: 32.w,
-                    height: 32.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).primaryColor.withValues(alpha: 0.1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      '${index + 1}',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Payment ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFF1F2937),
-                          ),
+            return Semantics(
+              label: 'Payment ${index + 1} of $durationMonths, \$${monthlyAmount.toStringAsFixed(2)}, due on $dateStr',
+              child: Container(
+                padding: EdgeInsets.all(12.w),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(color: Colors.grey.shade100),
+                ),
+                child: Row(
+                  children: [
+                    ExcludeSemantics(
+                      child: Container(
+                        width: 32.w,
+                        height: 32.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Theme.of(
+                            context,
+                          ).primaryColor.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
                         ),
-                        Text(
-                          'Due on $dateStr',
+                        child: Text(
+                          '${index + 1}',
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: const Color(0xFF6B7280),
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    '\$${monthlyAmount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: const Color(0xFF1F2937),
+                    SizedBox(width: 12.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Payment ${index + 1}',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                              color: const Color(0xFF1F2937),
+                            ),
+                          ),
+                          Text(
+                            'Due on $dateStr',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: const Color(0xFF6B7280),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    Text(
+                      '\$${monthlyAmount.toStringAsFixed(2)}',
+                      semanticsLabel: '${monthlyAmount.toStringAsFixed(2)} dollars',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFF1F2937),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

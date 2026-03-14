@@ -110,6 +110,7 @@ class _PlanSelectionViewState extends State<PlanSelectionView> {
                   ),
                   child: Text(
                     'Proceed to Confirmation',
+                    semanticsLabel: 'Proceed to order confirmation with selected plan',
                     style: TextStyle(
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,

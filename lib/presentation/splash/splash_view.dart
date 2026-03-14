@@ -36,10 +36,13 @@ class _SplashViewState extends State<SplashView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.shopping_bag,
-                size: 100.w,
-                color: Theme.of(context).primaryColor,
+              Semantics(
+                label: 'BNPL App Logo',
+                child: Icon(
+                  Icons.shopping_bag,
+                  size: 100.w,
+                  color: Theme.of(context).primaryColor,
+                ),
               ),
               SizedBox(height: 24.h),
               Text(
@@ -59,10 +62,16 @@ class _SplashViewState extends State<SplashView> {
                           FetchProductsDataEvent(),
                         );
                       },
-                      child: const Text('Retry'),
+                      child: const Text(
+                        'Retry',
+                        semanticsLabel: 'Retry fetching products',
+                      ),
                     );
                   }
-                  return const CircularProgressIndicator();
+                  return const Semantics(
+                    label: 'Loading products',
+                    child: CircularProgressIndicator(),
+                  );
                 },
               ),
             ],

@@ -25,10 +25,12 @@ class MainShellView extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_bag),
             label: 'Products',
+            tooltip: 'View products list',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_alt),
             label: 'Orders',
+            tooltip: 'View your orders',
           ),
         ],
       ),
