@@ -21,8 +21,8 @@ class OrderModel extends Order {
         json['installment_plan'] as Map<String, dynamic>? ?? {},
       ),
       status: json['status'] as String? ?? 'PENDING',
-      createdAt: DateTime.tryParse(json['created_at'].toString()) ??
-          DateTime.now(),
+      createdAt:
+          DateTime.tryParse(json['created_at'].toString()) ?? DateTime.now(),
     );
   }
 

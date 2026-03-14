@@ -91,5 +91,4 @@ class BnplRemoteDataSourceImpl implements BnplRemoteDataSource {
         .map((json) => OrderModel.fromJson(json as Map<String, dynamic>))
         .toList();
   }
-
 }

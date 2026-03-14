@@ -105,7 +105,7 @@ class _PaymentViewState extends State<PaymentView> {
                                       },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(
-                                     context,
+                                    context,
                                   ).primaryColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(16),
@@ -196,8 +196,6 @@ class _PaymentViewState extends State<PaymentView> {
                       Future.delayed(const Duration(milliseconds: 200), () {
                         sl<OrdersBloc>().add(FetchOrdersEvent());
                       });
-
-
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,

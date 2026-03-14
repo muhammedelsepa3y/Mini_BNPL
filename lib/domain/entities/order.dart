@@ -19,10 +19,10 @@ class Order extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        product,
-        installmentPlan,
-        status,
-        createdAt,
-      ];
+    id,
+    product,
+    installmentPlan,
+    status,
+    createdAt,
+  ];
 }

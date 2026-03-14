@@ -26,20 +26,21 @@ class OrderConfirmationView extends StatelessWidget {
   Future<bool> _authenticate() async {
     final auth = LocalAuthentication();
     try {
-        final bool isSupported = await auth.isDeviceSupported();
-        final List<BiometricType> biometrics =
-        await auth.getAvailableBiometrics();
+      final bool isSupported = await auth.isDeviceSupported();
+      final List<BiometricType> biometrics = await auth
+          .getAvailableBiometrics();
       if (!isSupported && biometrics.isEmpty) {
         return true;
       }
 
-        final bool hasFingerprint =
-        biometrics.contains(BiometricType.fingerprint);
-        final bool hasFace = biometrics.contains(BiometricType.face);
+      final bool hasFingerprint = biometrics.contains(
+        BiometricType.fingerprint,
+      );
+      final bool hasFace = biometrics.contains(BiometricType.face);
       if (hasFingerprint || hasFace || isSupported) {
         return await auth.authenticate(
           localizedReason: 'Please authenticate to continue',
-            biometricOnly: false,
+          biometricOnly: false,
         );
       }
 
@@ -60,7 +61,6 @@ class OrderConfirmationView extends StatelessWidget {
       child: BlocConsumer<OrderFlowBloc, OrderFlowState>(
         listener: (context, state) {
           if (state is OrderCreatedSuccess) {
-
             context.goNamed(
               AppRouteConst.paymentName,
               pathParameters: {'id': product.id.toString()},
