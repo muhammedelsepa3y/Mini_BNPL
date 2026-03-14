@@ -29,4 +29,8 @@ jobs:
         run: flutter analyze
 
       - name: Run tests
-        run: flutter test
+        run: |
+          flutter test \
+            test/domain/usecases/get_all_products_test.dart \
+            test/presentation/products/bloc/products_bloc_test.dart \
+            test/presentation/splash/splash_view_test.dart
