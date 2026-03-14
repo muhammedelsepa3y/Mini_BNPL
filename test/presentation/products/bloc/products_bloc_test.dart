@@ -21,7 +21,7 @@ void main() {
     when(mockProducts(any)).thenAnswer((_) async => const Right([]));
     when(mockInstallments(any)).thenAnswer((_) async => const Right([]));
 
-    await expectLater(
+    final expectation = expectLater(
       bloc.stream,
       emitsInOrder([
         const ProductsLoading(),
@@ -30,5 +30,6 @@ void main() {
     );
 
     bloc.add(FetchProductsDataEvent());
+    await expectation;
   });
 }
