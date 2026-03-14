@@ -25,28 +25,28 @@ class OrderConfirmationView extends StatelessWidget {
 
   Future<bool> _authenticate() async {
     final auth = LocalAuthentication();
-      try {
+    try {
         final bool isSupported = await auth.isDeviceSupported();
         final List<BiometricType> biometrics =
         await auth.getAvailableBiometrics();
-        if (!isSupported && biometrics.isEmpty) {
-          return true;
-        }
+      if (!isSupported && biometrics.isEmpty) {
+        return true;
+      }
 
         final bool hasFingerprint =
         biometrics.contains(BiometricType.fingerprint);
         final bool hasFace = biometrics.contains(BiometricType.face);
-        if (hasFingerprint || hasFace || isSupported) {
-          return await auth.authenticate(
-            localizedReason: 'Please authenticate to continue',
+      if (hasFingerprint || hasFace || isSupported) {
+        return await auth.authenticate(
+          localizedReason: 'Please authenticate to continue',
             biometricOnly: false,
-          );
-        }
-
-        return true;
-      } catch (_) {
-        return false;
+        );
       }
+
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
   }
 
   @override

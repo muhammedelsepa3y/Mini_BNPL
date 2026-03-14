@@ -12,7 +12,8 @@ import 'package:bnpl_app/presentation/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
 
 class AppRouter {
   static final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -59,18 +60,41 @@ class AppRouter {
                           name: AppRouteConst.planSelectionName,
                           path: AppRouteConst.planSelection,
                           builder: (context, state) {
-                            final product = state.extra as Product;
-                            return PlanSelectionView(product: product);
+                            final extra = state.extra;
+                            if (extra is! Product) {
+                              return const Scaffold(
+                                body: Center(
+                                  child: Text('Invalid navigation'),
+                                ),
+                              );
+                            }
+                            return PlanSelectionView(product: extra);
                           },
                         ),
                         GoRoute(
                           name: AppRouteConst.orderConfirmationName,
                           path: AppRouteConst.orderConfirmation,
                           builder: (context, state) {
-                            final args = state.extra as Map<String, dynamic>;
+                            final args = state.extra;
+                            if (args is! Map<String, dynamic>) {
+                              return const Scaffold(
+                                body: Center(
+                                  child: Text('Invalid navigation'),
+                                ),
+                              );
+                            }
+                            final product = args['product'];
+                            final plan = args['plan'];
+                            if (product is! Product || plan is! AvailablePlan) {
+                              return const Scaffold(
+                                body: Center(
+                                  child: Text('Invalid navigation'),
+                                ),
+                              );
+                            }
                             return OrderConfirmationView(
-                              product: args['product'] as Product,
-                              selectedPlan: args['plan'] as AvailablePlan,
+                              product: product,
+                              selectedPlan: plan,
                             );
                           },
                         ),
@@ -78,8 +102,15 @@ class AppRouter {
                           name: AppRouteConst.paymentName,
                           path: AppRouteConst.payment,
                           builder: (context, state) {
-                            final orderId = state.extra as int;
-                            return PaymentView(orderId: orderId);
+                            final extra = state.extra;
+                            if (extra is! int) {
+                              return const Scaffold(
+                                body: Center(
+                                  child: Text('Invalid navigation'),
+                                ),
+                              );
+                            }
+                            return PaymentView(orderId: extra);
                           },
                         ),
                       ],

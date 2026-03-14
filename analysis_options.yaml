@@ -23,6 +23,7 @@ linter:
   # producing the lint.
   rules:
     public_member_api_docs: false
+    one_member_abstracts: false
 #    lines_longer_than_80_chars: false
 #    sort_constructors_first: false
 #    prefer_const_constructors: false

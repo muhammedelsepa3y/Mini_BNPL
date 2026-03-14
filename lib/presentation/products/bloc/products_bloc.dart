@@ -13,7 +13,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   ProductsBloc({
     required this.getAllProducts,
     required this.getAllInstallments,
-  }) : super(ProductsInitial()) {
+  }) : super(const ProductsInitial()) {
     on<FetchProductsDataEvent>(_onFetchProductsData);
   }
 
@@ -24,7 +24,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     FetchProductsDataEvent event,
     Emitter<ProductsState> emit,
   ) async {
-    emit(ProductsLoading());
+    emit(const ProductsLoading());
     final productsResult = await getAllProducts(NoParams());
     await productsResult.fold(
       (failure) async {
