@@ -34,8 +34,10 @@ class OrderConfirmationView extends StatelessWidget {
 
       return await auth.authenticate(
         localizedReason: 'Please authenticate to confirm your order',
+        biometricOnly: true
       );
     } catch (e) {
+      debugPrint(e.toString());
       return false;
     }
   }

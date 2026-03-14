@@ -182,6 +182,7 @@ class _PaymentViewState extends State<PaymentView> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    context.pop();
                     context.goNamed(AppRouteConst.productsName);
                   },
                   style: ElevatedButton.styleFrom(
