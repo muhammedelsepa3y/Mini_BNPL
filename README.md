@@ -2,6 +2,12 @@
 
 A Flutter app for **Buy Now, Pay Later** (BNPL): browse products, choose installment plans, and complete orders with card and biometric authentication.
 
+## Download APK
+
+You can download the latest APK from [here](https://drive.google.com/drive/folders/1EZUprg9zgnc0JZunnrKOoADz3Kl31vUP?usp=sharing).
+
+---
+
 ## Setup
 
 ### Prerequisites
